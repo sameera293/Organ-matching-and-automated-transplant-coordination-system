@@ -3,6 +3,7 @@ Application Configuration Settings.
 Loads settings from environment variables with sensible defaults.
 """
 
+import json
 import os
 from pydantic_settings import BaseSettings
 
@@ -18,14 +19,16 @@ class Settings(BaseSettings):
     # Server & CORS
     HOST: str = os.getenv("HOST", "127.0.0.1")
     PORT: int = int(os.getenv("PORT", "8011"))
-    CORS_ORIGINS: list[str] = [
-        origin.strip()
-        for origin in os.getenv(
-            "CORS_ORIGINS",
-            "http://localhost:5173,http://127.0.0.1:5173,http://localhost:3000,http://127.0.0.1:3000",
-        ).split(",")
-        if origin.strip()
-    ]
+    _cors_origins_value = os.getenv(
+        "CORS_ORIGINS",
+        "http://localhost:5173,http://127.0.0.1:5173,http://localhost:3000,http://127.0.0.1:3000",
+    )
+    try:
+        CORS_ORIGINS: list[str] = json.loads(_cors_origins_value)
+    except json.JSONDecodeError:
+        CORS_ORIGINS: list[str] = [
+            origin.strip() for origin in _cors_origins_value.split(",") if origin.strip()
+        ]
     
     # ML & Assets
     MODEL_DIR: str = os.getenv("MODEL_DIR", "ml/saved_models")

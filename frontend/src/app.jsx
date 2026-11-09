@@ -8,14 +8,14 @@ import Donors from "./pages/Donors";
 import Organs from "./pages/Organs";
 import Recipients from "./pages/Recipients";
 import Matching from "./pages/Matching";
-import Explainability from "./pages/Explainability";
-import Logistics from "./pages/Logistics";
-import Optimization from "./pages/Optimization";
-import Scenarios from "./pages/Scenarios";
+import Explainability from "./pages/explainability";
+import Logistics from "./pages/logistics";
+import Optimization from "./pages/optimization";
+import Scenarios from "./pages/scenarios";
 import ProfessionalReview from "./pages/ProfessionalReview";
-import ModelEvaluation from "./pages/ModelEvaluation";
-import FairnessAssessment from "./pages/FairnessAssessment";
-import Notifications from "./pages/Notifications";
+import ModelEvaluation from "./pages/modelevaluation";
+import FairnessAssessment from "./pages/fairnessassessment";
+import Notifications from "./pages/notifications";
 
 function App() {
   const [activePage, setActivePage] = useState("dashboard");
