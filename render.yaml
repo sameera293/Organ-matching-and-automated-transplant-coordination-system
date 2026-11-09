@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: organ-matching-api
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt && python -m backend.seed_database
+    startCommand: uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: DATABASE_URL
+        value: sqlite:///./organ_matching.db
+      - key: MODEL_DIR
+        value: ml/saved_models
+      - key: DEFAULT_MODEL
+        value: xgboost
+      - key: CORS_ORIGINS
+        sync: false
